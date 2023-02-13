@@ -1,5 +1,8 @@
 using Persistence;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
+using Application.Activities;
+using Application.Core;
 
 // Entry point for the app
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +24,8 @@ builder.Services.AddCors(opt =>
         policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
     });
 });
-
+builder.Services.AddMediatR(typeof(List.Handler));
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 var app = builder.Build();
 
@@ -53,6 +57,7 @@ catch (Exception ex)
 {
     var logger = services.GetRequiredService<ILogger<Program>> ();
     logger.LogError(ex, "An error occurred during migration");
+    Console.WriteLine(logger);
 }
 
 app.Run();
