@@ -1,9 +1,10 @@
+using Application;
 using Application.Activities;
 using Domain;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
-
+// ============CRUD OPERATIONS============
 public class ActivitiesController : BaseApiController
 {
 
@@ -29,9 +30,19 @@ public class ActivitiesController : BaseApiController
 
     [HttpPut("{id}")]
     // EDIT functionality
+    // IActionResult gives us access to the http request types
     public async Task<IActionResult> EditActivity(Guid id, Activity activity)
     {
         activity.Id = id;
         return Ok(await Mediator.Send(new Edit.Command {Activity = activity}));
     }
+
+    // DELETE FUNCTIONALITY
+    // IActionResult gives us access to the http request types
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteActivity(Guid id)
+    {
+        return Ok(await Mediator.Send(new Delete.Command{Id = id}));
+    }
+    
 }
