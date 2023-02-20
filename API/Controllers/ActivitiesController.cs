@@ -20,6 +20,8 @@ public class ActivitiesController : BaseApiController
         return await Mediator.Send(new Details.Query{Id = id});
     }
 
+
+// =====HANDLERS=====
     [HttpPost]
     // CREATE functionality
     // IActionResult gives us access to the http request types

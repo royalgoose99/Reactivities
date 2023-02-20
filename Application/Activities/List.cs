@@ -15,7 +15,7 @@ namespace Application.Activities
         {
             private readonly DataContext _context;
 
-            public Handler(DataContext context, ILogger<List>)
+            public Handler(DataContext context, ILogger<List> logger)
             {
                 _context = context;
             }
